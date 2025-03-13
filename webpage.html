@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Exam Monitoring</title>
+    <link rel="stylesheet" href="webpage.css">
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>An Intelligent System for Online Exam Monitoring</h2>
+            <ul>
+                <li onclick="showFeature('eye-tracking')">Eye Tracking</li> 
+                <li onclick="showFeature('face-detection')">Face Detection</li>
+                <li onclick="showFeature('head-pose detection')">Head Pose Detection</li>
+                <li onclick="showFeature('mouth-opening')">Mouth Opening Detection</li>
+                <li onclick="showFeature('person-phone detection')">Person and Phone Detection</li>
+                <li onclick="showFeature('audio-monitoring')">Audio Monitoring</li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <h1>Online Exam</h1>
+            <marquee behavior="scroll" direction="left" style="font-style: italic; color: red" >Please don't go away from the camera screen!</marquee>
+
+            <div class="video-container">
+                <video id="video" autoplay></video>
+            </div>
+
+            <div id="detection-message"></div>
+        </div>
+    </div>
+
+    <script src="webpage.js"></script>
+
+    <script src="vikas.py"></script>
+    
+</body>
+</html> 

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Exam Monitoring</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #videoFeed {
+            width: 80%;
+            max-width: 640px;
+            border: 2px solid black;
+        }
+        .sidebar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 200px;
+            height: 100%;
+            background: #333;
+            color: white;
+            padding: 20px;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+        .sidebar a:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h3>Features</h3>
+        <a href="#">Eye Tracking</a>
+        <a href="#">Face Detection</a>
+        <a href="#">Head Pose Detection</a>
+        <a href="#">Mouth Opening</a>
+        <a href="#">Person & Phone Detection</a>
+        <a href="#">Audio Detection</a>
+    </div>
+
+    <h1>Online Exam Monitoring</h1>
+    <canvas id="videoFeed"></canvas>
+
+    <script>
+        const canvas = document.getElementById('videoFeed');
+        const ctx = canvas.getContext('2d');
+
+        const ws = new WebSocket("ws://localhost:8765");
+
+        ws.onmessage = function(event) {
+            const detections = JSON.parse(event.data);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            detections.forEach(detection => {
+                ctx.strokeStyle = detection.label === "person" ? "green" : "red";
+                ctx.strokeRect(detection.x, detection.y, detection.w, detection.h);
+                ctx.fillStyle = "white";
+                ctx.fillText(detection.label, detection.x, detection.y - 5);
+            });
+        };
+    </script>
+</body>
+</html>
